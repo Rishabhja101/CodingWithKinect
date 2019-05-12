@@ -8,34 +8,34 @@ public class KinectAvatarController : MonoBehaviour
 
     private List<GameObject> Bodies;
 
-    //private Dictionary<string, GameObject> boneMap = new Dictionary<string, GameObject>()
-    //{
-    //    {"SpineBase", Skeleton[0]},
-    //    {"SpineMid", Skeleton[1]},
-    //    {"Neck", Skeleton[2]},
-    //    {"Head", Skeleton[3]},
-    //    {"ShoulderLeft", Skeleton[4]},
-    //    {"ElbowLeft", Skeleton[5]},
-    //    {"WristLeft", Skeleton[6]},
-    //    {"HandLeft", Skeleton[7]},
-    //    {"ShoulderRight", Skeleton[8]},
-    //    {"ElbowRight", Skeleton[9]},
-    //    {"WristRight", Skeleton[10]},
-    //    {"HandRight", Skeleton[11]},
-    //    {"HipLeft", Skeleton[12]},
-    //    {"KneeLeft", Skeleton[13]},
-    //    {"AnkleLeft", Skeleton[14]},
-    //    {"FootLeft", Skeleton[15]},
-    //    {"HipRight", Skeleton[16]},
-    //    {"KneeRight", Skeleton[17]},
-    //    {"AnkleRight", Skeleton[18]},
-    //    {"FootRight", Skeleton[19]},
-    //    {"SpineShoulder", Skeleton[20]},
-    //    {"HandTipLeft", Skeleton[21]},
-    //    {"ThumbLeft", Skeleton[22]},
-    //    {"HandTipRight", Skeleton[23]},
-    //    {"ThumbRight", Skeleton[24]}
-    //};
+    private string[] joints = new string[] 
+    {
+        "SpineBase",
+        "SpineMid",
+        "Neck",
+        "Head",
+        "ShoulderLeft",
+        "ElbowLeft",
+        "WristLeft",
+        "HandLeft",
+        "ShoulderRight",
+        "ElbowRight",
+        "WristRight",
+        "HandRight",
+        "HipLeft",
+        "KneeLeft",
+        "AnkleLeft",
+        "FootLeft",
+        "HipRight",
+        "KneeRight",
+        "AnkleRight",
+        "FootRight",
+        "SpineShoulder",
+        "HandTipLeft",
+        "ThumbLeft",
+        "HandTipRight",
+        "ThumbRight"
+    };
 
 
     // Start is called before the first frame update
@@ -116,6 +116,11 @@ public class KinectAvatarController : MonoBehaviour
             {"HandTipRight",    Skeleton.transform.GetChild(23) },
             {"ThumbRight",      Skeleton.transform.GetChild(24) }
         };
+        
+        foreach(string joint in joints)
+        {
+            avatarMap[joint].position = boneMap[joint].position;
+        }
 
     }
 
