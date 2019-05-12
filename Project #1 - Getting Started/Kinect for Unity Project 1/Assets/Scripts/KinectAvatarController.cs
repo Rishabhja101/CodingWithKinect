@@ -47,17 +47,24 @@ public class KinectAvatarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateBodiesList();
-        UpdateSkeleton(Bodies[0]);
+        try
+        {
+            UpdateBodiesList();
+            UpdateSkeleton(Bodies[0]);
+        }
+        catch
+        {
+            print("errer");
+        }
     }
 
     private void UpdateSkeleton(GameObject Skeleton)
     {
         Avatar = GameObject.Find("MaleCustomize");
-        for (int i = 0; i < Avatar.transform.GetChild(1).transform.GetChild(0).transform.childCount; i++)
-        {
-            print(Avatar.transform.GetChild(1).transform.GetChild(0).transform.GetChild(i).name);
-        }
+        //for (int i = 0; i < Avatar.transform.GetChild(1).transform.GetChild(0).transform.childCount; i++)
+        //{
+        //    print(Avatar.transform.GetChild(1).transform.GetChild(0).transform.GetChild(i).name);
+        //}
         
         Dictionary<string, Transform> avatarMap = new Dictionary<string, Transform>()
         {
@@ -94,30 +101,56 @@ public class KinectAvatarController : MonoBehaviour
             {"SpineMid",        Skeleton.transform.GetChild(1) },
             {"Neck",            Skeleton.transform.GetChild(2) },
             {"Head",            Skeleton.transform.GetChild(3) },
-            {"ShoulderLeft",    Skeleton.transform.GetChild(4) },
-            {"ElbowLeft",       Skeleton.transform.GetChild(5) },
-            {"WristLeft",       Skeleton.transform.GetChild(6) },
-            {"HandLeft",        Skeleton.transform.GetChild(7) },
-            {"ShoulderRight",   Skeleton.transform.GetChild(8) },
-            {"ElbowRight",      Skeleton.transform.GetChild(9) },
-            {"WristRight",      Skeleton.transform.GetChild(10) },
-            {"HandRight",       Skeleton.transform.GetChild(11) },
-            {"HipLeft",         Skeleton.transform.GetChild(12) },
-            {"KneeLeft",        Skeleton.transform.GetChild(13) },
-            {"AnkleLeft",       Skeleton.transform.GetChild(14) },
-            {"FootLeft",        Skeleton.transform.GetChild(15) },
-            {"HipRight",        Skeleton.transform.GetChild(16) },
-            {"KneeRight",       Skeleton.transform.GetChild(17) },
-            {"AnkleRight",      Skeleton.transform.GetChild(18) },
-            {"FootRight",       Skeleton.transform.GetChild(19) },
+            {"ShoulderRight",    Skeleton.transform.GetChild(4) },
+            {"ElbowRight",       Skeleton.transform.GetChild(5) },
+            {"WristRight",       Skeleton.transform.GetChild(6) },
+            {"HandRight",        Skeleton.transform.GetChild(7) },
+            {"ShoulderLeft",   Skeleton.transform.GetChild(8) },
+            {"ElbowLeft",      Skeleton.transform.GetChild(9) },
+            {"WristLeft",      Skeleton.transform.GetChild(10) },
+            {"HandLeft",       Skeleton.transform.GetChild(11) },
+            {"HipRight",         Skeleton.transform.GetChild(12) },
+            {"KneeRight",        Skeleton.transform.GetChild(13) },
+            {"AnkleRight",       Skeleton.transform.GetChild(14) },
+            {"FootRight",        Skeleton.transform.GetChild(15) },
+            {"HipLeft",        Skeleton.transform.GetChild(16) },
+            {"KneeLeft",       Skeleton.transform.GetChild(17) },
+            {"AnkleLeft",      Skeleton.transform.GetChild(18) },
+            {"FootLeft",       Skeleton.transform.GetChild(19) },
             {"SpineShoulder",   Skeleton.transform.GetChild(20) },
-            {"HandTipLeft",     Skeleton.transform.GetChild(21) },
-            {"ThumbLeft",       Skeleton.transform.GetChild(22) },
-            {"HandTipRight",    Skeleton.transform.GetChild(23) },
-            {"ThumbRight",      Skeleton.transform.GetChild(24) }
+            {"HandTipRight",     Skeleton.transform.GetChild(21) },
+            {"ThumbRight",       Skeleton.transform.GetChild(22) },
+            {"HandTipLeft",    Skeleton.transform.GetChild(23) },
+            {"ThumbLeft",      Skeleton.transform.GetChild(24) }
         };
-        
-        foreach(string joint in joints)
+
+        //Avatar.transform.position = boneMap["FootRight"].position;
+        //avatarMap["Head"].position = boneMap["Head"].position;
+        //avatarMap["Neck"].position = boneMap["Neck"].position;
+        //avatarMap["HandLeft"].position = boneMap["HandLeft"].position;
+        //avatarMap["ElbowLeft"].position = boneMap["ElbowLeft"].position;
+        //avatarMap["ShoulderLeft"].position = boneMap["ShoulderLeft"].position;
+
+        //avatarMap["HipLeft"].position = boneMap["HipLeft"].position;
+        //avatarMap["KneeLeft"].position = boneMap["KneeLeft"].position;
+        //avatarMap["AnkleLeft"].position = boneMap["AnkleLeft"].position;
+        //avatarMap["FootLeft"].position = boneMap["FootLeft"].position;
+
+        //avatarMap["HipRight"].position = boneMap["HipRight"].position;
+        //avatarMap["KneeRight"].position = boneMap["KneeRight"].position;
+        //avatarMap["AnkleRight"].position = boneMap["AnkleRight"].position;
+        //avatarMap["FootRight"].position = boneMap["FootRight"].position;
+
+        //avatarMap["SpineShoulder"].position = boneMap["SpineShoulder"].position;
+        //avatarMap["SpineMid"].position = boneMap["SpineMid"].position;
+        //avatarMap["SpineBase"].position = boneMap["SpineBase"].position;
+
+        Avatar.transform.GetChild(1).transform.GetChild(0).position = boneMap["SpineBase"].position;
+
+        //print(Avatar.transform.position);
+
+        //        avatarMap[joint].position = boneMap[joint].position
+        foreach (string joint in joints)
         {
             avatarMap[joint].position = boneMap[joint].position;
         }
@@ -140,7 +173,7 @@ public class KinectAvatarController : MonoBehaviour
         {
             if (!obs.Contains(ob))
             {
-                Bodies.Add(ob);
+                Bodies.Remove(ob);
             }
         }
     }
