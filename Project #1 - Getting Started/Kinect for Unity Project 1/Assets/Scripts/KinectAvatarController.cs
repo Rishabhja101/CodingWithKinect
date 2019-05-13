@@ -8,6 +8,10 @@ public class KinectAvatarController : MonoBehaviour
 
     private List<GameObject> Bodies;
 
+    private float scale = 2;
+    private float offset = -15; // -15 to match human
+    private float offsetx = 0;
+
     private string[] joints = new string[] 
     {
         "SpineBase",
@@ -60,12 +64,13 @@ public class KinectAvatarController : MonoBehaviour
 
     private void UpdateSkeleton(GameObject Skeleton)
     {
-        Avatar = GameObject.Find("MaleCustomize");
+//        Avatar = GameObject.Find("MaleCustomize");
+        Avatar = GameObject.Find("MaleCustomize (1)");
         //for (int i = 0; i < Avatar.transform.GetChild(1).transform.GetChild(0).transform.childCount; i++)
         //{
         //    print(Avatar.transform.GetChild(1).transform.GetChild(0).transform.GetChild(i).name);
         //}
-        
+
         Dictionary<string, Transform> avatarMap = new Dictionary<string, Transform>()
         {
             {"SpineBase",       Avatar.transform.GetChild(1).transform.GetChild(0).transform.GetChild(2) },
@@ -145,14 +150,25 @@ public class KinectAvatarController : MonoBehaviour
         //avatarMap["SpineMid"].position = boneMap["SpineMid"].position;
         //avatarMap["SpineBase"].position = boneMap["SpineBase"].position;
 
-        Avatar.transform.GetChild(1).transform.GetChild(0).position = boneMap["SpineBase"].position;
+        Avatar.transform.GetChild(1).transform.GetChild(0).position = new Vector3(boneMap["SpineBase"].position.x * scale + offsetx, boneMap["SpineBase"].position.y * scale, boneMap["SpineBase"].position.z * scale);
+        //Avatar.transform.eulerAngles = Skeleton.transform.eulerAngles;
 
         //print(Avatar.transform.position);
+        float x = boneMap["ShoulderRight"].position.x - boneMap["ShoulderLeft"].position.x;
+        float z = boneMap["ShoulderRight"].position.z - boneMap["ShoulderLeft"].position.z;
+        float theda = Mathf.Asin(z / Mathf.Pow(x * x + z * z, 0.5f)) * 180 / Mathf.PI;
 
+        Avatar.transform.eulerAngles = new Vector3(Avatar.transform.eulerAngles.x, theda + 180, Avatar.transform.eulerAngles.z);
+
+      //  print("test: " + x + " " + z + " " + theda * 180 / Mathf.PI);
+      //  print("Angle" + ": " + theda / Mathf.PI * 180);
         //        avatarMap[joint].position = boneMap[joint].position
         foreach (string joint in joints)
         {
-            avatarMap[joint].position = boneMap[joint].position;
+            avatarMap[joint].position = new Vector3(boneMap[joint].position.x * scale + offsetx, boneMap[joint].position.y * scale, boneMap[joint].position.z * scale + offset);
+            //   avatarMap[joint].eulerAngles = boneMap[joint].eulerAngles;
+           // print(joint + ": " + boneMap[joint].position);
+           
         }
 
     }
