@@ -97,8 +97,11 @@ public class KinectAvatarController : MonoBehaviour
             {"HandTipLeft",     Avatar.transform.GetChild(1).transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(1) },
             {"ThumbLeft",       Avatar.transform.GetChild(1).transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(4) },
             {"HandTipRight",    Avatar.transform.GetChild(1).transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(1) },
-            {"ThumbRight",      Avatar.transform.GetChild(1).transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(4) }
+            {"ThumbRight",      Avatar.transform.GetChild(1).transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(2).transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.GetChild(4) },
+            {"Pelvis",          Avatar.transform.GetChild(1).transform.GetChild(0).transform.GetChild(3) }
         };
+
+        print(Avatar.transform.GetChild(1).transform.GetChild(0).transform.GetChild(3).name);
 
         Dictionary<string, Transform> boneMap = new Dictionary<string, Transform>()
         {
@@ -106,27 +109,28 @@ public class KinectAvatarController : MonoBehaviour
             {"SpineMid",        Skeleton.transform.GetChild(1) },
             {"Neck",            Skeleton.transform.GetChild(2) },
             {"Head",            Skeleton.transform.GetChild(3) },
-            {"ShoulderRight",    Skeleton.transform.GetChild(4) },
-            {"ElbowRight",       Skeleton.transform.GetChild(5) },
-            {"WristRight",       Skeleton.transform.GetChild(6) },
-            {"HandRight",        Skeleton.transform.GetChild(7) },
-            {"ShoulderLeft",   Skeleton.transform.GetChild(8) },
-            {"ElbowLeft",      Skeleton.transform.GetChild(9) },
-            {"WristLeft",      Skeleton.transform.GetChild(10) },
-            {"HandLeft",       Skeleton.transform.GetChild(11) },
-            {"HipRight",         Skeleton.transform.GetChild(12) },
-            {"KneeRight",        Skeleton.transform.GetChild(13) },
-            {"AnkleRight",       Skeleton.transform.GetChild(14) },
-            {"FootRight",        Skeleton.transform.GetChild(15) },
-            {"HipLeft",        Skeleton.transform.GetChild(16) },
-            {"KneeLeft",       Skeleton.transform.GetChild(17) },
-            {"AnkleLeft",      Skeleton.transform.GetChild(18) },
-            {"FootLeft",       Skeleton.transform.GetChild(19) },
+            {"ShoulderRight",   Skeleton.transform.GetChild(4) },
+            {"ElbowRight",      Skeleton.transform.GetChild(5) },
+            {"WristRight",      Skeleton.transform.GetChild(6) },
+            {"HandRight",       Skeleton.transform.GetChild(7) },
+            {"ShoulderLeft",    Skeleton.transform.GetChild(8) },
+            {"ElbowLeft",       Skeleton.transform.GetChild(9) },
+            {"WristLeft",       Skeleton.transform.GetChild(10) },
+            {"HandLeft",        Skeleton.transform.GetChild(11) },
+            {"HipRight",        Skeleton.transform.GetChild(12) },
+            {"KneeRight",       Skeleton.transform.GetChild(13) },
+            {"AnkleRight",      Skeleton.transform.GetChild(14) },
+            {"FootRight",       Skeleton.transform.GetChild(15) },
+            {"HipLeft",         Skeleton.transform.GetChild(16) },
+            {"KneeLeft",        Skeleton.transform.GetChild(17) },
+            {"AnkleLeft",       Skeleton.transform.GetChild(18) },
+            {"FootLeft",        Skeleton.transform.GetChild(19) },
             {"SpineShoulder",   Skeleton.transform.GetChild(20) },
-            {"HandTipRight",     Skeleton.transform.GetChild(21) },
-            {"ThumbRight",       Skeleton.transform.GetChild(22) },
-            {"HandTipLeft",    Skeleton.transform.GetChild(23) },
-            {"ThumbLeft",      Skeleton.transform.GetChild(24) }
+            {"HandTipRight",    Skeleton.transform.GetChild(21) },
+            {"ThumbRight",      Skeleton.transform.GetChild(22) },
+            {"HandTipLeft",     Skeleton.transform.GetChild(23) },
+            {"ThumbLeft",       Skeleton.transform.GetChild(24) },
+            {"Pelvis",          Skeleton.transform.GetChild(0)}
         };
 
         //Avatar.transform.position = boneMap["FootRight"].position;
@@ -150,7 +154,7 @@ public class KinectAvatarController : MonoBehaviour
         //avatarMap["SpineMid"].position = boneMap["SpineMid"].position;
         //avatarMap["SpineBase"].position = boneMap["SpineBase"].position;
 
-        Avatar.transform.GetChild(1).transform.GetChild(0).position = new Vector3(boneMap["SpineBase"].position.x * scale + offsetx, boneMap["SpineBase"].position.y * scale, boneMap["SpineBase"].position.z * scale);
+        Avatar.transform.GetChild(1).transform.GetChild(0).position = new Vector3(boneMap["SpineBase"].position.x * scale + offsetx, boneMap["SpineBase"].position.y * scale, boneMap["SpineBase"].position.z * scale + offset);
         //Avatar.transform.eulerAngles = Skeleton.transform.eulerAngles;
 
         //print(Avatar.transform.position);
@@ -160,16 +164,20 @@ public class KinectAvatarController : MonoBehaviour
 
         Avatar.transform.eulerAngles = new Vector3(Avatar.transform.eulerAngles.x, theda + 180, Avatar.transform.eulerAngles.z);
 
-      //  print("test: " + x + " " + z + " " + theda * 180 / Mathf.PI);
-      //  print("Angle" + ": " + theda / Mathf.PI * 180);
+
+        //  print("test: " + x + " " + z + " " + theda * 180 / Mathf.PI);
+        //  print("Angle" + ": " + theda / Mathf.PI * 180);
         //        avatarMap[joint].position = boneMap[joint].position
+
+        avatarMap["Pelvis"].position = new Vector3(boneMap["Pelvis"].position.x * scale + offsetx, boneMap["Pelvis"].position.y * scale, boneMap["Pelvis"].position.z * scale + offset);
+
         foreach (string joint in joints)
         {
             avatarMap[joint].position = new Vector3(boneMap[joint].position.x * scale + offsetx, boneMap[joint].position.y * scale, boneMap[joint].position.z * scale + offset);
             //   avatarMap[joint].eulerAngles = boneMap[joint].eulerAngles;
-           // print(joint + ": " + boneMap[joint].position);
-           
+           // print(joint + ": " + boneMap[joint].position);   
         }
+
 
     }
 
